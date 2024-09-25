@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_loggeds",
+  "info": {
+    "singularName": "user-logged",
+    "pluralName": "user-loggeds",
+    "displayName": "user_logged",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "login_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::login.login",
+      "inversedBy": "user_logged"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "surname": {
+      "type": "string",
+      "required": true
+    },
+    "wishlists_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::wishlist.wishlist"
+    },
+    "tickets_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ticket.ticket"
+    },
+    "products_cart_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-cart.product-cart"
+    },
+    "reviews_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review"
+    }
+  }
+}

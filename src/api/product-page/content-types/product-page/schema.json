@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_pages",
+  "info": {
+    "singularName": "product-page",
+    "pluralName": "product-pages",
+    "displayName": "Product_page     ",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "article_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "reviews_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review"
+    },
+    "tickets_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ticket.ticket"
+    },
+    "user_logged_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-logged.user-logged"
+    }
+  }
+}

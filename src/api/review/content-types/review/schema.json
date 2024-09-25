@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "singularName": "review",
+    "pluralName": "reviews",
+    "displayName": "Review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "text": {
+      "type": "text",
+      "required": false
+    },
+    "star": {
+      "required": true,
+      "type": "integer",
+      "min": 1,
+      "max": 5,
+      "default": 1
+    },
+    "date": {
+      "type": "date"
+    },
+    "user_logged_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-logged.user-logged"
+    },
+    "article_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    }
+  }
+}

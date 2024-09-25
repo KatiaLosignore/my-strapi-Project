@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "measures",
+  "info": {
+    "singularName": "measure",
+    "pluralName": "measures",
+    "displayName": "measure     ",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "neck": {
+      "type": "decimal",
+      "required": false
+    },
+    "chest": {
+      "type": "decimal",
+      "required": false
+    },
+    "shoulders": {
+      "type": "decimal",
+      "required": false
+    },
+    "life": {
+      "type": "decimal",
+      "required": false
+    },
+    "sleeves": {
+      "type": "decimal",
+      "required": false
+    },
+    "lenght": {
+      "type": "decimal",
+      "required": false
+    },
+    "wrists": {
+      "type": "decimal",
+      "required": false
+    },
+    "articles_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    }
+  }
+}

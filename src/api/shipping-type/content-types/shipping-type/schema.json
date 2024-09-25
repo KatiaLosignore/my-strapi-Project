@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shipping_types",
+  "info": {
+    "singularName": "shipping-type",
+    "pluralName": "shipping-types",
+    "displayName": "Shipping_type   ",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "float",
+      "required": true
+    },
+    "address_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::address.address"
+    }
+  }
+}

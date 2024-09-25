@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_cart_products",
+  "info": {
+    "singularName": "product-cart-product",
+    "pluralName": "product-cart-products",
+    "displayName": "Product_cart_Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product_cart_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product-cart.product-cart"
+    },
+    "article_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::article.article"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "date_added": {
+      "type": "date"
+    }
+  }
+}

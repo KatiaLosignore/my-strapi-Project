@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "circuits",
+  "info": {
+    "singularName": "circuit",
+    "pluralName": "circuits",
+    "displayName": "Circuit ",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "url_api": {
+      "type": "string",
+      "required": true
+    },
+    "cards_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::card.card"
+    }
+  }
+}

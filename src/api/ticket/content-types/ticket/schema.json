@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "singularName": "ticket",
+    "pluralName": "tickets",
+    "displayName": "Ticket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "text": {
+      "type": "text",
+      "required": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "user_logged_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-logged.user-logged"
+    },
+    "product_page_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product-page.product-page"
+    },
+    "state": {
+      "type": "customField",
+      "options": [
+        "Nuovo ",
+        "In elaborazione ",
+        "Risposto ",
+        "Risolto",
+        "Chiuso"
+      ],
+      "customField": "plugin::multi-select.multi-select"
+    }
+  }
+}

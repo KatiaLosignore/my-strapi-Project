@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "checkouts",
+  "info": {
+    "singularName": "checkout",
+    "pluralName": "checkouts",
+    "displayName": "Checkout",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "card_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::card.card"
+    },
+    "product_cart_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product-cart.product-cart",
+      "inversedBy": "checkout_id"
+    },
+    "address_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::address.address"
+    },
+    "user_logged_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-logged.user-logged"
+    },
+    "shipping_type_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::shipping-type.shipping-type"
+    },
+    "order_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "mappedBy": "checkout_id"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "persons",
+  "info": {
+    "singularName": "person",
+    "pluralName": "persons",
+    "displayName": "persons",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    }
+  }
+}

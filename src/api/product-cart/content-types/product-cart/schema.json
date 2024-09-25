@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_carts",
+  "info": {
+    "singularName": "product-cart",
+    "pluralName": "product-carts",
+    "displayName": "Product_cart      ",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "num_product": {
+      "type": "integer",
+      "required": true
+    },
+    "full_price": {
+      "type": "float",
+      "required": true
+    },
+    "user_logged_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-logged.user-logged"
+    },
+    "checkout_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::checkout.checkout",
+      "mappedBy": "product_cart_id"
+    },
+    "articles_id": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    },
+    "order_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order.order",
+      "mappedBy": "product_cart_id"
+    }
+  }
+}
