@@ -837,7 +837,8 @@ export interface ApiArticleArticle extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
-    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Attribute.Required;
     price: Attribute.Float & Attribute.Required;
     available: Attribute.Boolean;
     slug: Attribute.UID<'api::article.article', 'title'>;

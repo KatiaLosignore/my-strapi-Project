@@ -79,14 +79,6 @@ export default factories.createCoreController('api::article.article', ({ strapi 
 
 
 
-
-
-
-
-
-
-
-
       // endpoint con parametri di query: '?page=2&pageSize=10'  per ottenere la seconda pagina con 10 articoli
 
       // Struttura della risposta con dati e informazioni di paginazione
@@ -109,7 +101,7 @@ export default factories.createCoreController('api::article.article', ({ strapi 
     }
   },
 
-  // Metodo per filtrare articoli in base al titolo
+  // Metodo per filtrare articoli in base al Titolo
   async findByTitle(ctx: Context) {
     const { title } = ctx.query;
 
@@ -145,10 +137,30 @@ export default factories.createCoreController('api::article.article', ({ strapi 
         return ctx.send({ message: 'No articles found with the specified title' });
       }
 
+      // Funzione per filtrare i campi dell'immagine
+      const filterImageFields = (image: any) => {
+        if (!image) return null;
+
+        return {
+          id: image.id,
+          name: image.name,
+          alternativeText: image.alternativeText,
+          caption: image.caption,
+          width: image.width,
+          height: image.height,
+          formats: {
+            thumbnail: image.formats?.thumbnail?.url || null,
+            small: image.formats?.small?.url || null,
+            medium: image.formats?.medium?.url || null,
+          },
+        };
+      };
+
+
       // Mappa gli articoli per restituire solo i campi desiderati
       const filteredResponse = articles.map((article: any) => ({
         title: article.title,
-        image: article.image,
+        image: filterImageFields(article.image),
         price: article.price,
         available: article.available,
         slug: article.slug,
@@ -204,9 +216,28 @@ export default factories.createCoreController('api::article.article', ({ strapi 
         return ctx.send({ message: 'No articles found with the specified category' });
       }
 
+      // Funzione per filtrare i campi dell'immagine
+      const filterImageFields = (image: any) => {
+        if (!image) return null;
+
+        return {
+          id: image.id,
+          name: image.name,
+          alternativeText: image.alternativeText,
+          caption: image.caption,
+          width: image.width,
+          height: image.height,
+          formats: {
+            thumbnail: image.formats?.thumbnail?.url || null,
+            small: image.formats?.small?.url || null,
+            medium: image.formats?.medium?.url || null,
+          },
+        };
+      };
+
       const filteredResponse = articles.map((article: any) => ({
         title: article.title,
-        image: article.image,
+        image: filterImageFields(article.image),
         price: article.price,
         available: article.available,
         slug: article.slug,
@@ -227,7 +258,7 @@ export default factories.createCoreController('api::article.article', ({ strapi 
     }
   },
 
-  // Metodo custom per ottenere il dettaglio di un singolo articolo
+  // Metodo che filtra la lista dei prodotti per ID o per Slug
   async findOne(ctx) {
     try {
       // Recupera il parametro id o slug dalla richiesta
@@ -251,7 +282,31 @@ export default factories.createCoreController('api::article.article', ({ strapi 
         return ctx.notFound('Article not found!');
       }
 
-      // Restituisce l'articolo trovato
+        // Funzione per filtrare i campi dell'immagine
+        const filterImageFields = (image) => {
+          if (!image) return null;
+
+          return {
+            id: image.id,
+            name: image.name,
+            alternativeText: image.alternativeText,
+            caption: image.caption,
+            width: image.width,
+            height: image.height,
+            formats: {
+              thumbnail: image.formats?.thumbnail?.url || null,
+              small: image.formats?.small?.url || null,
+              medium: image.formats?.medium?.url || null,
+            },
+          };
+        };
+
+      // Filtra i campi dell'immagine utilizzando la funzione filterImageFields
+      if (entity.image) {
+        entity.image = filterImageFields(entity.image);
+      }
+
+      // Restituisce l'articolo trovato con l'immagine filtrata
       return entity;
 
     } catch (err) {
