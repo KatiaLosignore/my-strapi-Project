@@ -56,6 +56,19 @@ export default factories.createCoreController('api::article.article', ({ strapi 
         };
       };
 
+       // Funzione per calcolare la media delle stelle (reviews)
+       // Il metodo reduce itera su ogni elemento dell'array e accumula un valore.
+       // In questo caso, il valore accumulato è la somma di tutte le proprietà star di ogni recensione.
+       // La funzione di callback (sum, review) somma le stelle di ogni recensione.
+       // Il secondo argomento 0 passato a reduce indica che la somma iniziale è 0.
+       const calculateAverageRating = (reviews: any[]) => {
+        if (!reviews || reviews.length === 0) return 0;
+
+        const totalStars = reviews.reduce((sum, review) => sum + review.star, 0);
+        // Calcola la media delle stelle
+        return totalStars / reviews.length;
+      };
+
       // Mappa gli articoli e filtra i campi dell'immagine
       const customResponse = articles.map((article: any) => ({
         title: article.title,
@@ -71,12 +84,27 @@ export default factories.createCoreController('api::article.article', ({ strapi 
         colors_id: article.colors_id,
         measure_id: article.measure_id,
         reviews_id: article.reviews_id,
+        // nuovo campo chiamato averageRating che contiene la media delle valutazioni per ogni articolo.
+        averageRating: calculateAverageRating(article.reviews_id),
       }));
+
+      // Articoli che hanno almeno una recensione (ossia reviews_id non vuota).
+      const articlesWithReviews = customResponse.filter(article => article.reviews_id && article.reviews_id.length > 0);
+      // Articoli che non hanno recensioni (ossia reviews_id vuota).
+      const articlesWithoutReviews = customResponse.filter(article => !article.reviews_id || article.reviews_id.length === 0);
+
+
+      // Gli articoli con recensioni vengono ordinati in modo decrescente in base al campo averageRating (da 5 a 1) usando sort((a, b) => b.averageRating - a.averageRating).
+      const sortedArticlesWithReviews = articlesWithReviews.sort((a, b) => b.averageRating - a.averageRating);
+
+      // Combina gli articoli ordinati con recensioni con quelli senza recensioni
+      // Concatenazione: Gli articoli ordinati con recensioni vengono concatenati con quelli senza recensioni, in modo che questi ultimi vengano visualizzati per ultimi.
+      const finalSortedArticles = [...sortedArticlesWithReviews, ...articlesWithoutReviews];
+
 
       // totalPages viene calcolato dividendo il numero totale di articoli per la dimensione della pagina (pageSize). Math.ceil arrotonda un numero per eccesso all'intero più vicino.
       // Math.floor => arrotonda un numero per difetto.
       const totalPages = Math.ceil(totalArticles / pageSize);
-
 
 
       // endpoint con parametri di query: '?page=2&pageSize=10'  per ottenere la seconda pagina con 10 articoli
@@ -84,7 +112,7 @@ export default factories.createCoreController('api::article.article', ({ strapi 
       // Struttura della risposta con dati e informazioni di paginazione
       // Restituisce un oggetto response con i dati degli articoli e una sezione meta che include le informazioni di paginazione (pagina corrente, dimensione della pagina, numero totale di pagine e totale degli articoli).
       const response = {
-        data: customResponse,
+        data: finalSortedArticles,
         meta: {
           pagination: {
             page: Number(page),
